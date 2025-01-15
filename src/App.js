@@ -2,8 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import MovieList from './MovieList';
+import Search from './search';
 
 function App() {
+  const [keyword, setKeyword] = useState("");
   const [movies, setMovies] = useState([
     {
       title: 'Macha 1',
@@ -24,9 +26,18 @@ function App() {
       rating: 4.7,
     },
   ]);
+  const search = (text) => {
+    setKeyword(text);
+  };                
   return (
     <div className="App">
-      <MovieList movies={movies}/>
+<Search search={search}/>
+<MovieList movies={movies.filter(
+          (el) =>
+          el.title.toLowerCase().includes(keyword.toLowerCase().trim())
+        )} />
+
+
     </div>
   );
 }
